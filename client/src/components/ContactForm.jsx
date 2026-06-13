@@ -16,6 +16,14 @@ export default function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (form.subject.trim().length < 5) {
+      toast.error("Please provide a subject of at least 5 characters.")
+      return
+    }
+    if (form.message.trim().length < 10) {
+      toast.error("Message must be at least 10 characters long.")
+      return
+    }
     setError('')
     setLoading(true)
     try {
@@ -37,7 +45,7 @@ export default function ContactForm() {
   const inputClass = "w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 outline-none focus:border-blue-500/50 focus:bg-white/[0.05] transition-all duration-200"
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left */}

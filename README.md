@@ -162,3 +162,24 @@ Typography: Inter (body), JetBrains Mono (code/labels)
 ## 🔒 License
 
 This project is proprietary and confidential. Unauthorized copying, modification, distribution, or execution is strictly prohibited.
+
+## Security Architecture & Production Roadmap
+
+NetraSecure was built as a 48-hour prototype to validate the core threat-detection concept. The authentication layer is intentionally stubbed out for this demo. Below is the precise production architecture that would be implemented before any public launch.
+
+### Authentication
+Production auth would issue JWTs with short expiry windows (15 minutes) stored exclusively in `httpOnly`, `Secure`, `SameSite=Strict` cookies — never in `localStorage` — to eliminate the XSS attack surface that browser-accessible tokens expose. This pairs with a **refresh token rotation** strategy: a long-lived refresh token (stored in a separate `httpOnly` cookie) is exchanged for a new access/refresh token pair on each use, and the old refresh token is immediately invalidated, preventing replay attacks.
+
+### Password Hashing & Data Integrity
+User credentials would be hashed server-side using **Argon2id** (preferred over bcrypt for its resistance to GPU and side-channel attacks), with per-user salts managed automatically by the library. Raw passwords never touch the database or application logs.
+
+### API Rate Limiting & Abuse Prevention
+`express-rate-limit` would be applied as middleware on all `/auth/*` endpoints (login, registration, password reset) and `/scan-url` to prevent brute-force credential attacks and volumetric DDoS abuse. Sensitive auth routes would use a stricter sliding-window policy (e.g., 10 requests / 15 min per IP) with exponential backoff headers returned to the client.
+
+### Network Security & CORS
+The deployment enforces a strict CORS whitelist — only the verified production front-end origin is permitted to make credentialed cross-origin requests. All other origins receive a `403` at the network layer before any application logic executes.
+
+### Future Scope: RBAC for Enterprise Accounts
+A future enterprise tier would introduce **Role-Based Access Control (RBAC)** with at minimum three roles — `owner`, `analyst`, and `viewer` — scoping access to scan history, threat reports, and team management. Roles would be encoded in the JWT payload and verified server-side on every protected route, never trusted from the client.
+
+> **Note:** These features were descoped to keep the prototype focused on the core AI threat-detection pipeline. The architecture decisions above reflect production intent, not shortcuts.

@@ -46,7 +46,7 @@ export default function ScannerSection() {
   const cfg = result ? (riskConfig[result.status] || riskConfig.suspicious) : null
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8">
+    <section id="scanner" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left: Scanner UI */}

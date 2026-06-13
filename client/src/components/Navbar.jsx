@@ -15,6 +15,15 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault()
+    const element = document.getElementById(targetId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+      window.history.pushState(null, '', `#${targetId}`)
+    }
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > window.innerHeight * 0.4) {
@@ -50,6 +59,7 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href.slice(1))}
                 className="px-3 py-2 text-sm text-slate-400 hover:text-white transition-colors rounded-md hover:bg-white/5"
               >
                 {link.label}
@@ -59,11 +69,11 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-6">
-            <a href="#contact" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
-              Login
+            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
+              Request Demo
             </a>
-            <a href="#contact" className="px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-500 transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]">
-              Sign Up
+            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-500 transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+              Get Early Access
             </a>
           </div>
 
@@ -93,13 +103,13 @@ export default function Navbar() {
                 <a
                   key={link.label}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => { handleNavClick(e, link.href.slice(1)); setMobileOpen(false) }}
                   className="px-3 py-2.5 text-sm text-slate-400 hover:text-white hover:bg-white/5 rounded-md transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
-              <a href="#contact" className="btn-primary text-sm mt-2 text-center" onClick={() => setMobileOpen(false)}>
+              <a href="#contact" className="btn-primary text-sm mt-2 text-center" onClick={(e) => { handleNavClick(e, 'contact'); setMobileOpen(false) }}>
                 Get Started
               </a>
             </nav>
