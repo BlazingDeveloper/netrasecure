@@ -64,7 +64,6 @@ Visit `http://localhost:5173` in your browser. Ensure the backend is running to 
 
 ---
 
-<<<<<<< HEAD
 ## API Endpoints
 
 | Method | Endpoint    | Description         |
@@ -159,7 +158,7 @@ Typography: Inter (body), JetBrains Mono (code/labels)
 - ✅ Fully responsive (mobile, tablet, desktop)
 
 ---
-=======
+
 ## 🔒 License
+
 This project is proprietary and confidential. Unauthorized copying, modification, distribution, or execution is strictly prohibited.
->>>>>>> 4bcde92 (Update frontend components and project files)

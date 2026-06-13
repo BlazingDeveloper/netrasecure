@@ -31,7 +31,7 @@ const scanUrl = (req, res) => {
     message = 'Shortened URLs obscure the destination. Proceed with caution.';
     checks = { ssl: true, reputation: false, malware: false, phishing: false };
   } else if (url.includes('login') || url.includes('secure') || url.includes('verify')) {
-    status = 'suspicious';
+    status = 'high_risk';
     risk = 'high';
     score = 18;
     message = 'This URL contains patterns commonly associated with phishing attempts.';

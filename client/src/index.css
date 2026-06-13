@@ -123,3 +123,16 @@
     text-wrap: balance;
   }
 }
+
+/* Used by the typing-indicator dots in ChatbotSection and ProductShowcase
+   (referenced via inline `animation: bounce ...` styles) */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
