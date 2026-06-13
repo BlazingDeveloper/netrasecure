@@ -170,5 +170,3 @@ Typography: Inter (body), JetBrains Mono (code/labels)
 - ✅ Fully responsive (mobile, tablet, desktop)
 
 ---
-
-Built by Saarthak Nigam | DSCE Information Science & Engineering
