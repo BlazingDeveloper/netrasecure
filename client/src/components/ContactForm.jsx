@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
+import { toast } from 'react-hot-toast'
 import { RiSendPlaneLine, RiCheckboxCircleLine, RiMailLine, RiPhoneLine, RiTimeLine } from 'react-icons/ri'
 
 const API_BASE = import.meta.env.VITE_API_URL || ''
@@ -18,11 +19,16 @@ export default function ContactForm() {
     setError('')
     setLoading(true)
     try {
+      // Simulate real network latency (1.5s - 2s)
+      await new Promise(r => setTimeout(r, 1500 + Math.random() * 500))
       await axios.post(`${API_BASE}/contact`, form)
       setSuccess(true)
       setForm({ name: '', email: '', subject: '', message: '' })
+      toast.success("Message secured and sent to the team")
     } catch (err) {
-      setError(err.response?.data?.message || 'Something went wrong. Please try again.')
+      const errMsg = err.response?.data?.message || 'Something went wrong. Please try again.'
+      setError(errMsg)
+      toast.error(errMsg)
     } finally {
       setLoading(false)
     }

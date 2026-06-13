@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 import { RiShieldLine, RiMenuLine, RiCloseLine } from 'react-icons/ri'
 
 const links = [
@@ -12,25 +12,30 @@ const links = [
 ]
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const { scrollY } = useScroll()
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const vh = window.innerHeight
+    if (latest > vh * 0.8) {
+      setIsVisible(true)
+    } else {
+      setIsVisible(false)
+      setMobileOpen(false)
+    }
+  })
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'backdrop-blur-xl bg-[#020817]/80 border-b border-blue-900/30 shadow-2xl shadow-black/40'
-          : 'bg-transparent'
-      }`}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ 
+        opacity: isVisible ? 1 : 0, 
+        y: isVisible ? 0 : -20,
+        pointerEvents: isVisible ? 'auto' : 'none'
+      }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 bg-[#05050A]/80 backdrop-blur-md border-b border-white/10 shadow-2xl`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -86,7 +91,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden border-t border-blue-900/30 bg-[#040f2a]/95 backdrop-blur-xl"
+            className="md:hidden overflow-hidden border-t border-white/10 bg-[#05050A]/95 backdrop-blur-xl"
           >
             <nav className="px-4 py-4 flex flex-col gap-1">
               {links.map((link) => (
@@ -99,7 +104,7 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <a href="#scanner" className="btn-primary text-sm mt-2 text-center">
+              <a href="#scanner" className="btn-primary text-sm mt-2 text-center" onClick={() => setMobileOpen(false)}>
                 Get Started
               </a>
             </nav>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { RiArrowRightLine, RiScanLine, RiShieldCheckLine, RiRadarLine, RiEyeLine } from 'react-icons/ri'
+import logo from '../assets/logo.png'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -152,110 +153,155 @@ function ShieldVisualization() {
 }
 
 export default function Hero() {
+  const containerRef = useRef(null)
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  })
+
+  // Splash State: 0 to 0.4
+  const splashOpacity = useTransform(scrollYProgress, [0, 0.3, 0.4], [1, 1, 0])
+  const splashScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.4])
+  const splashY = useTransform(scrollYProgress, [0, 0.4], ["0%", "-50%"])
+
+  // Main Content Reveal: 0.4 to 1.0
+  const mainOpacity = useTransform(scrollYProgress, [0.35, 0.6], [0, 1])
+  const mainY = useTransform(scrollYProgress, [0.35, 0.6], ["50px", "0px"])
+
   return (
-    <section className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
-      {/* Grid overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(rgba(29,111,232,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(29,111,232,0.04) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }}
-      />
+    <section ref={containerRef} className="relative h-[200vh]">
+      <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
+        {/* Grid overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(rgba(29,111,232,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(29,111,232,0.04) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left */}
-          <div>
+        {/* Splash Content */}
+        <motion.div 
+          className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none"
+          style={{
+            opacity: splashOpacity,
+            scale: splashScale,
+            y: splashY
+          }}
+        >
+          <img 
+            src={logo} 
+            alt="NetraSecure Logo" 
+            className="w-48 h-48 mb-6 drop-shadow-[0_0_40px_rgba(29,111,232,0.8)]"
+          />
+          <h1 className="text-4xl md:text-6xl font-bold tracking-[0.2em] text-white drop-shadow-[0_0_20px_rgba(29,111,232,0.5)]">
+            NETRASECURE AI
+          </h1>
+        </motion.div>
+
+        {/* Main Content */}
+        <motion.div 
+          className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
+          style={{
+            opacity: mainOpacity,
+            y: mainY,
+            pointerEvents: useTransform(scrollYProgress, v => v > 0.4 ? 'auto' : 'none')
+          }}
+        >
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left */}
+            <div>
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={0}
+                className="inline-flex items-center gap-2 glass px-3 py-1.5 rounded-full mb-8"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                <span className="text-xs font-mono text-blue-400 tracking-widest uppercase">AI-Powered Security Platform</span>
+              </motion.div>
+
+              <motion.h2
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={1}
+                className="text-5xl sm:text-6xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6"
+              >
+                <span className="text-white">Cybersecurity</span>
+                <br />
+                <span className="gradient-text">For The Modern</span>
+                <br />
+                <span className="text-slate-300 font-light">World</span>
+              </motion.h2>
+
+              <motion.p
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={2}
+                className="text-slate-400 text-lg leading-relaxed mb-10 max-w-md"
+              >
+                Analyze suspicious links, detect threats, and receive intelligent security guidance through one unified platform.
+              </motion.p>
+
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={3}
+                className="flex flex-wrap gap-3 mb-12"
+              >
+                <a href="#features" className="btn-primary flex items-center gap-2 pointer-events-auto">
+                  Explore Platform
+                  <RiArrowRightLine size={16} />
+                </a>
+                <a href="#scanner" className="btn-ghost flex items-center gap-2 pointer-events-auto">
+                  <RiScanLine size={16} />
+                  Try Scanner
+                </a>
+              </motion.div>
+
+              {/* Trust row */}
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={4}
+                className="flex flex-wrap gap-6"
+              >
+                {[
+                  { value: 10000, suffix: '+', label: 'Scans' },
+                  { value: 99.9, suffix: '%', label: 'Detection Accuracy' },
+                  { value: 24, suffix: '/7', label: 'Monitoring' },
+                ].map(({ value, suffix, label }) => (
+                  <div key={label} className="flex flex-col">
+                    <span className="text-2xl font-bold text-white font-mono">
+                      <AnimatedCounter target={value} suffix={suffix} />
+                    </span>
+                    <span className="text-xs text-slate-500 mt-0.5">{label}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Right */}
             <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              animate="show"
-              custom={0}
-              className="inline-flex items-center gap-2 glass px-3 py-1.5 rounded-full mb-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
             >
-              <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-              <span className="text-xs font-mono text-blue-400 tracking-widest uppercase">AI-Powered Security Platform</span>
-            </motion.div>
-
-            <motion.h1
-              variants={fadeUp}
-              initial="hidden"
-              animate="show"
-              custom={1}
-              className="text-5xl sm:text-6xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6"
-            >
-              <span className="text-white">AI-Powered</span>
-              <br />
-              <span className="gradient-text">Cybersecurity</span>
-              <br />
-              <span className="text-slate-300 font-light">For Everyday Users</span>
-            </motion.h1>
-
-            <motion.p
-              variants={fadeUp}
-              initial="hidden"
-              animate="show"
-              custom={2}
-              className="text-slate-400 text-lg leading-relaxed mb-10 max-w-md"
-            >
-              Analyze suspicious links, detect threats, and receive intelligent security guidance through one unified platform.
-            </motion.p>
-
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              animate="show"
-              custom={3}
-              className="flex flex-wrap gap-3 mb-12"
-            >
-              <a href="#features" className="btn-primary flex items-center gap-2">
-                Explore Platform
-                <RiArrowRightLine size={16} />
-              </a>
-              <a href="#scanner" className="btn-ghost flex items-center gap-2">
-                <RiScanLine size={16} />
-                Try Scanner
-              </a>
-            </motion.div>
-
-            {/* Trust row */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              animate="show"
-              custom={4}
-              className="flex flex-wrap gap-6"
-            >
-              {[
-                { value: 10000, suffix: '+', label: 'Scans' },
-                { value: 99.9, suffix: '%', label: 'Detection Accuracy' },
-                { value: 24, suffix: '/7', label: 'Monitoring' },
-              ].map(({ value, suffix, label }) => (
-                <div key={label} className="flex flex-col">
-                  <span className="text-2xl font-bold text-white font-mono">
-                    <AnimatedCounter target={value} suffix={suffix} />
-                  </span>
-                  <span className="text-xs text-slate-500 mt-0.5">{label}</span>
-                </div>
-              ))}
+              <ShieldVisualization />
             </motion.div>
           </div>
+        </motion.div>
 
-          {/* Right */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            <ShieldVisualization />
-          </motion.div>
-        </div>
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+          style={{ background: 'linear-gradient(transparent, #020817)' }} />
       </div>
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-        style={{ background: 'linear-gradient(transparent, #020817)' }} />
     </section>
   )
 }

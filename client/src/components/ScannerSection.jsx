@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
+import { toast } from 'react-hot-toast'
 import {
   RiScanLine, RiShieldCheckLine, RiAlertLine, RiErrorWarningLine,
   RiLinkM, RiCheckLine, RiCloseLine
@@ -31,10 +32,12 @@ export default function ScannerSection() {
 
     try {
       const { data } = await axios.post(`${API_BASE}/scan-url`, { url: trimmed })
-      await new Promise(r => setTimeout(r, 800)) // UX delay for animation
+      await new Promise(r => setTimeout(r, 1500 + Math.random() * 500)) // UX delay for animation simulating latency
       setResult(data)
+      toast.success("URL Analysis Complete")
     } catch {
       setError('Scan failed. Make sure the backend server is running.')
+      toast.error('Scan failed')
     } finally {
       setScanning(false)
     }

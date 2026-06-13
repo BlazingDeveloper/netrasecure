@@ -1,4 +1,5 @@
 import React from 'react'
+import { Toaster } from 'react-hot-toast'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Features from './components/Features'
@@ -16,6 +17,14 @@ import Footer from './components/Footer'
 export default function App() {
   return (
     <div className="min-h-screen bg-[#020817] text-slate-100 overflow-x-hidden">
+      <Toaster position="bottom-right" toastOptions={{
+        style: {
+          background: '#040f2a',
+          color: '#e2e8f0',
+          border: '1px solid rgba(29, 111, 232, 0.2)',
+          backdropFilter: 'blur(16px)',
+        }
+      }} />
       {/* Ambient background blobs */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] rounded-full opacity-[0.04]"

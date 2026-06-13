@@ -1,81 +1,70 @@
-# NetraSecure AI — Full Stack Landing Page
+# NetraSecure AI
 
-AI-powered cybersecurity platform built for AnantNetra Technologies hiring assignment.
+[![Live Frontend](https://img.shields.io/badge/Live_Frontend-Vercel-black?style=for-the-badge&logo=vercel)](https://netrasecure-ai.vercel.app/)
+[![Live Backend](https://img.shields.io/badge/Live_Backend-Render-blue?style=for-the-badge&logo=render)](https://netrasecure-api.onrender.com/)
 
-**Stack:** React + Vite + Tailwind CSS + Framer Motion (frontend) / Node.js + Express (backend)
+![NetraSecure AI Hero Preview](./client/src/assets/logo.png)
+*(Note: Replace the image above with a high-resolution screenshot of the Hero section)*
 
----
-
-## Project Structure
-
-```
-netrasecure/
-├── client/                     # React frontend (Vite)
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── Hero.jsx            # Animated shield visualization
-│   │   │   ├── Features.jsx        # Asymmetric feature cards
-│   │   │   ├── WhyNetrasecure.jsx  # Bento grid with animated stats
-│   │   │   ├── ProductShowcase.jsx # Realistic dashboard previews
-│   │   │   ├── HowItWorks.jsx      # Horizontal timeline
-│   │   │   ├── TrustSection.jsx    # Compliance badges
-│   │   │   ├── ChatbotSection.jsx  # Live chat UI with API
-│   │   │   ├── ScannerSection.jsx  # URL scanner with results
-│   │   │   ├── Testimonials.jsx
-│   │   │   ├── ContactForm.jsx     # Form with API submission
-│   │   │   ├── FinalCTA.jsx
-│   │   │   └── Footer.jsx
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   ├── index.html
-│   ├── vite.config.js
-│   ├── tailwind.config.js
-│   └── package.json
-│
-└── server/                     # Express backend
-    ├── routes/
-    │   ├── contact.js
-    │   ├── scan.js
-    │   └── chat.js
-    ├── controllers/
-    │   ├── contactController.js
-    │   ├── scanController.js
-    │   └── chatController.js
-    ├── app.js
-    └── package.json
-```
+NetraSecure AI is a premium cybersecurity platform built for everyday users. We combine intuitive interfaces with advanced threat detection to bring enterprise-grade security to the individual level.
 
 ---
 
-## Local Development
+## 🏛 Architecture
 
-### Prerequisites
-- Node.js 18+
-- npm or yarn
+NetraSecure AI is engineered using a modern MERN stack architecture tailored for speed, scalability, and premium user experience:
 
-### 1. Backend
+- **Frontend (Client):** 
+  - Built with **React** and powered by **Vite** for blazing fast HMR and optimized builds.
+  - Styled with **Tailwind CSS** for a highly responsive, glassmorphic UI.
+  - Animations are orchestrated via **Framer Motion**, featuring cinematic scroll reveals to deliver a polished, investor-ready user experience.
+  - Form interactions utilize `react-hot-toast` with simulated network latency to demonstrate real-world UX responsiveness and loading states.
+  
+- **Backend (Server):** 
+  - A lightweight **Node.js/Express** API architecture serving as the foundational layer for complex threat analysis algorithms and chatbot interactions.
+  - Implements modular routing and controllers for maintainability.
 
+---
+
+## 🚀 Local Development Setup
+
+To run NetraSecure AI locally, you need [Node.js](https://nodejs.org/) installed on your machine.
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/BlazingDeveloper/netrasecure.git
+cd netrasecure
+```
+
+### 2. Setup the Server (Backend)
+Open a new terminal window and run the following commands:
 ```bash
 cd server
 npm install
-npm run dev          # Starts on http://localhost:5000
+
+# Start the development server (runs on port 3001)
+npm run dev
 ```
 
-### 2. Frontend
-
+### 3. Setup the Client (Frontend)
+Open another terminal window and run the following commands:
 ```bash
 cd client
 npm install
-cp .env.example .env # Edit VITE_API_URL if backend URL differs
-npm run dev          # Starts on http://localhost:5173
+
+# Create environment file from the example
+cp .env.example .env
+
+# Start the Vite development server
+npm run dev
 ```
 
-The Vite dev server proxies `/contact`, `/scan-url`, and `/chat` to `localhost:5000` automatically (configured in `vite.config.js`), so `.env` is only needed for production.
+### 4. Experience the Platform
+Visit `http://localhost:5173` in your browser. Ensure the backend is running to experience full interactivity with the URL scanner and AI assistant modules.
 
 ---
 
+<<<<<<< HEAD
 ## API Endpoints
 
 | Method | Endpoint    | Description         |
@@ -170,3 +159,7 @@ Typography: Inter (body), JetBrains Mono (code/labels)
 - ✅ Fully responsive (mobile, tablet, desktop)
 
 ---
+=======
+## 🔒 License
+This project is proprietary and confidential. Unauthorized copying, modification, distribution, or execution is strictly prohibited.
+>>>>>>> 4bcde92 (Update frontend components and project files)

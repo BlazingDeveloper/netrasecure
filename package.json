@@ -1,0 +1,27 @@
+{
+  "name": "netrasecure",
+  "version": "1.0.0",
+  "description": "[![Live Frontend](https://img.shields.io/badge/Live_Frontend-Vercel-black?style=for-the-badge&logo=vercel)](https://netrasecure-ai.vercel.app/) [![Live Backend](https://img.shields.io/badge/Live_Backend-Render-blue?style=for-the-badge&logo=render)](https://netrasecure-api.onrender.com/)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlazingDeveloper/netrasecure.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/BlazingDeveloper/netrasecure/issues"
+  },
+  "homepage": "https://github.com/BlazingDeveloper/netrasecure#readme",
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}
