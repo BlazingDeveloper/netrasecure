@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { RiShieldLine, RiMenuLine, RiCloseLine } from 'react-icons/ri'
 
 const links = [
@@ -13,38 +13,30 @@ const links = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
-  const { scrollY } = useScroll()
+  const [isScrolled, setIsScrolled] = useState(false)
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const vh = window.innerHeight
-    if (latest > vh * 0.8) {
-      setIsVisible(true)
-    } else {
-      setIsVisible(false)
-      setMobileOpen(false)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > window.innerHeight * 0.4) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
     }
-  })
+    window.addEventListener('scroll', handleScroll)
+    // Run once to initialize state based on current scroll position
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ 
-        opacity: isVisible ? 1 : 0, 
-        y: isVisible ? 0 : -20,
-        pointerEvents: isVisible ? 'auto' : 'none'
-      }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 bg-[#05050A]/80 backdrop-blur-md border-b border-white/10 shadow-2xl`}
+    <nav
+      className={isScrolled ? "fixed top-0 w-full z-50 transition-all duration-300 bg-[#020817]/80 backdrop-blur-md border-b border-gray-800/50 py-4 shadow-lg opacity-100 pointer-events-auto" : "fixed top-0 w-full z-50 transition-all duration-300 bg-transparent py-6 opacity-0 pointer-events-none"}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2.5 group">
-            <div className="relative w-8 h-8 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-lg bg-blue-600/20 group-hover:bg-blue-600/30 transition-colors" />
-              <RiShieldLine className="relative z-10 text-blue-400 text-lg" />
-            </div>
             <span className="font-semibold text-sm tracking-tight">
               <span className="text-white">Netra</span>
               <span className="text-blue-400">Secure</span>
@@ -66,9 +58,12 @@ export default function Navbar() {
           </nav>
 
           {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <a href="#scanner" className="btn-primary text-sm">
-              Get Started
+          <div className="hidden md:flex items-center gap-6">
+            <a href="#contact" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
+              Login
+            </a>
+            <a href="#contact" className="px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-500 transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+              Sign Up
             </a>
           </div>
 
@@ -104,13 +99,13 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <a href="#scanner" className="btn-primary text-sm mt-2 text-center" onClick={() => setMobileOpen(false)}>
+              <a href="#contact" className="btn-primary text-sm mt-2 text-center" onClick={() => setMobileOpen(false)}>
                 Get Started
               </a>
             </nav>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </nav>
   )
 }

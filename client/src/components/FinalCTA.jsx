@@ -40,7 +40,7 @@ export default function FinalCTA() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="#scanner" className="btn-primary flex items-center gap-2 px-8 py-3.5">
+              <a href="#contact" className="btn-primary flex items-center gap-2 px-8 py-3.5">
                 Get Started
                 <RiArrowRightLine size={16} />
               </a>

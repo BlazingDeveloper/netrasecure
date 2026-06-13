@@ -42,8 +42,8 @@ export default function Testimonials() {
         >
           <span className="section-label mb-4 block">— What Users Say</span>
           <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            <span className="gradient-text">Real feedback</span>
-            <span className="text-white"> from real users</span>
+            <span className="gradient-text">Trusted by Security</span>
+            <span className="text-white"> Engineering Teams</span>
           </h2>
         </motion.div>
 
