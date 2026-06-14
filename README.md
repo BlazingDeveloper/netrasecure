@@ -3,10 +3,10 @@
 [![Live Frontend](https://img.shields.io/badge/Live_Frontend-Vercel-black?style=for-the-badge&logo=vercel)](https://netrasecure-ai.vercel.app/)
 [![Live Backend](https://img.shields.io/badge/Live_Backend-Render-blue?style=for-the-badge&logo=render)](https://netrasecure-api.onrender.com/)
 
-![NetraSecure AI Hero Preview](./client/src/assets/logo.png)
-*(Note: Replace the image above with a high-resolution screenshot of the Hero section)*
+![NetraSecure AI Hero Preview](./client/src/assets/netrasecure_architecture.png)
 
-NetraSecure AI is a premium cybersecurity platform built for everyday users. We combine intuitive interfaces with advanced threat detection to bring enterprise-grade security to the individual level.
+
+NetraSecure AI is a cybersecurity platform built for users. We combine intuitive interfaces with advanced threat detection to bring enterprise grade security to the individual level.
 
 ---
 
