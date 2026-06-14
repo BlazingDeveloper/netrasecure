@@ -1,7 +1,7 @@
 # NetraSecure AI
 
-[![Live Frontend](https://img.shields.io/badge/Live_Frontend-Vercel-black?style=for-the-badge&logo=vercel)](https://netrasecure-ai.vercel.app/)
-[![Live Backend](https://img.shields.io/badge/Live_Backend-Render-blue?style=for-the-badge&logo=render)](https://netrasecure-api.onrender.com/)
+[![Live Frontend](https://img.shields.io/badge/Live_Frontend-Vercel-black?style=for-the-badge&logo=vercel)](https://netrasecure.vercel.app)
+[![Live Backend](https://img.shields.io/badge/Live_Backend-Render-blue?style=for-the-badge&logo=render)](https://netrasecure-api.onrender.com)
 
 ![NetraSecure AI Hero Preview](./client/src/assets/netrasecure_architecture.png)
 
